@@ -1,10 +1,10 @@
-10 Things I learned when creating Progem
-########################################
+10 Things I learned when creating my personal blog
+##################################################
 
 :status: draft
 :date: 2022-04-29 22:00
 :tags: progem pelican theme, pelican, static site generator, theme, things i learned
-:slug: 10-things-i-learned-when-creating-progem
+:slug: things-i-learned-when-creating-my-personal-blog
 :authors: Adrian Loo
 :lang: en
 :summary: As I was planning Spydermaxi.com, I came across Pelican static site generator. Upon reading the documentation, I decided that creating a theme for the site would be an excellent opportunity to learn more about Pelican. Here are things I've learned when creating Progem - a Pelican theme.
@@ -19,3 +19,4 @@ When I was planning Spydermaxi.com, I came across Pelican - a static site genera
    4. Site themes are created using Jinga2 templates, something I picked up during my Django Bootcamp course back in Y2021.
 
 Here are 10 things I've learned when creating Progem:
+

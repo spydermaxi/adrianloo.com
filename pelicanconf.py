@@ -1,7 +1,7 @@
 AUTHOR = 'Adrian Loo'
-SITENAME = 'SpyderMaxi'
-SITEURL = 'https://spydermaxi.com'
-SITESUBTITLE = ""
+SITENAME = 'Adrian Loo'
+SITEURL = 'https://adrianloo.com'
+SITESUBTITLE = "A Personal Headspace Learning Continuously"
 TIMEZONE = 'Asia/Singapore'
 
 THEME = "pelican-progem"

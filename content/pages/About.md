@@ -1,11 +1,11 @@
 Title: About
-Date: 2022-05-02 14:27
-Tags: About Spydermaxi, About
-Slug: about-spydermaxi
+Date: 2022-05-17 22:33
+Tags: About me, About
+Slug: about-adrianloo
 Authors: Adrian Loo
 Lang: en
 Feature_Image: images/thaon_di_revel_la_spezia_adrianloo.jpg
-Summary: Here's why I create spydermaxi.com
+Summary: Here's why I create adrianloo.com
 
 Photo by Adrian Loo - Thaon Di Revel Bridge (La Spezia)
 
