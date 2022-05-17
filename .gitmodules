@@ -1,0 +1,3 @@
+[submodule "pelican-progem"]
+	path = pelican-progem
+	url = https://github.com/spydermaxi/pelican-progem.git

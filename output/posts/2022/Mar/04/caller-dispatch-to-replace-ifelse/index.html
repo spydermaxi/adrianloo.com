@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible"/>
+<title>SpyderMaxi - Caller Dispatch - Python</title>
+<meta content="Pelican" name="generator"/>
+<meta content="True" name="HandheldFriendly"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://spydermaxi.com/feeds/all.atom.xml" rel="alternate" title="SpyderMaxi Full Atom Feed" type="application/atom+xml"/>
+<link href="https://spydermaxi.com/feeds/coding.atom.xml" rel="alternate" title="SpyderMaxi Categories Atom Feed" type="application/atom+xml"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" rel="stylesheet"/>
+<link href="../../../../../theme/css/codehilite.css" rel="stylesheet" type="text/css">
+<link href="../../../../../theme/css/style.css" rel="stylesheet" type="text/css"/>
+<link href="favicon.ico" rel="shortcut icon" type="image/x-icon"/>
+<meta content="caller dispatch" name="tags"/>
+<meta content="if else statements" name="tags"/>
+<meta content="python" name="tags"/>
+<meta content="dictionary" name="tags"/>
+<meta content="dispatch" name="tags"/>
+<meta content="functions" name="tags"/>
+<meta content="conditional logic" name="tags"/>
+<meta content="function call" name="tags"/>
+</link></head>
+<body class="home-template" id="index">
+<div class="nav-header">
+<nav aria-label="Main" class="nav-wrapper">
+<ul>
+<li><a href="../../../../.."><span>Home</span></a></li>
+<li><a href="../../../../../pages/about-spydermaxi.html"><span>About</span></a></li>
+<li class="active"><a href="../../../../../category/coding.html"><span>Coding</span></a></li>
+</ul>
+<ul class="nav-meta">
+<li class="nav-github">
+<a aria-label="github" href="http://github.com/spydermaxi" target="_blank">
+<i aria-hidden="true" class="fab fa-github"></i>
+</a>
+</li>
+<li class="nav-twitter">
+<a aria-label="twitter" href="https://twitter.com/spydermaxi" target="_blank">
+<i aria-hidden="true" class="fab fa-twitter"></i>
+</a>
+</li>
+<li class="nav-search">
+<a title="Search">
+<i aria-hidden="true" class="icon icon-search"></i>
+<span>Search</span>
+</a>
+</li>
+</ul>
+</nav>
+<div class="nav-wrapper-control">
+<div class="inner">
+<a class="nav-menu" role="button"><i aria-hidden="true" class="icon icon-menu"></i>Menu</a>
+<a class="nav-search" role="button" style="display: none;" title="Search"><i aria-hidden="true" class="icon icon-search"></i></a>
+</div>
+</div>
+</div>
+<div aria-label="Close" class="nav-close" role="button"></div>
+<section class="page-wrapper">
+<header class="post-header has-cover">
+<div class="inner">
+<span class="post-info">
+<span class="post-type">Article</span>
+<span class="post-count">caller dispatch</span>
+</span>
+<h1 class="post-title">Caller Dispatch - Python</h1>
+<div class="post-meta">
+<div class="post-meta-avatars">
+<figure class="post-meta-avatar avatar">
+</figure>
+</div>
+<h4 class="post-meta-author">Adrian Loo</h4>
+<time datetime="Fri 04 March 2022">Fri 04 March 2022</time>
+</div>
+<div class="post-cover cover">
+<img alt="Caller Dispatch - Python" class="image-process-large-photo" sizes="(min-width: 1200px) 800px, (min-width: 992px) 650px, (min-width: 768px) 718px, 100vw" src="../../../../../images/derivatives/large-photo/800w/caller_dispatch_adrianloo.jpg" srcset="../../../../../images/derivatives/large-photo/600w/caller_dispatch_adrianloo.jpg 600w, ../../../../../images/derivatives/large-photo/800w/caller_dispatch_adrianloo.jpg 800w, ../../../../../images/derivatives/large-photo/1600w/caller_dispatch_adrianloo.jpg 1600w"/>
+</div>
+</div>
+</header>
+<main class="content" role="main">
+<article class="post">
+<div class="inner">
+<section class="post-content">
+<p>Let's say there are four XML files with different element structures.
+In order to parse all four files into a specifc dataframe structure as shown below, we need to write specifc functions to read different level of elements in each xml file.</p>
+<div class="highlight"><pre><span></span><span class="c1"># Example dataframe:</span>
+<span class="n">numpy_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]])</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">numpy_data</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">'Category'</span><span class="p">,</span> <span class="s1">'Key'</span><span class="p">,</span> <span class="s1">'Value'</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+
+   <span class="n">Category</span>  <span class="n">Key</span>  <span class="n">Value</span>
+<span class="mi">0</span>         <span class="mi">1</span>    <span class="mi">2</span>      <span class="mi">3</span>
+</pre></div>
+<div class="section" id="writing-the-individual-functions">
+<h2>Writing the individual functions</h2>
+<p>Since all xml files has different element structures, the method to parse those files are different.</p>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">parse_syscfg</span><span class="p">(</span><span class="n">xml_file</span><span class="p">):</span>
+    <span class="n">root</span> <span class="o">=</span> <span class="n">ET</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">xml_file</span><span class="p">)</span><span class="o">.</span><span class="n">getroot</span><span class="p">()</span>
+    <span class="n">param_ls</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">root</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">i</span><span class="p">:</span>
+            <span class="n">param_ls</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s1">'Category'</span><span class="p">:</span> <span class="n">i</span><span class="o">.</span><span class="n">tag</span><span class="p">,</span>
+                             <span class="s1">'Key'</span><span class="p">:</span> <span class="n">c</span><span class="o">.</span><span class="n">attrib</span><span class="p">[</span><span class="s1">'key'</span><span class="p">],</span>
+                             <span class="s1">'Value'</span><span class="p">:</span> <span class="n">c</span><span class="o">.</span><span class="n">attrib</span><span class="p">[</span><span class="s1">'value'</span><span class="p">]})</span>
+    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">param_ls</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">parse_initcfg</span><span class="p">(</span><span class="n">xml_file</span><span class="p">):</span>
+    <span class="n">root</span> <span class="o">=</span> <span class="n">ET</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">xml_file</span><span class="p">)</span><span class="o">.</span><span class="n">getroot</span><span class="p">()</span>
+    <span class="n">param_ls</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">root</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">i</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">c</span><span class="o">.</span><span class="n">attrib</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="n">param_ls</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s1">'Category'</span><span class="p">:</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">i</span><span class="o">.</span><span class="n">tag</span><span class="si">}</span><span class="s2">-</span><span class="si">{</span><span class="n">c</span><span class="o">.</span><span class="n">tag</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
+                                 <span class="s1">'Key'</span><span class="p">:</span> <span class="n">k</span><span class="p">,</span>
+                                 <span class="s1">'Value'</span><span class="p">:</span><span class="n">v</span><span class="p">})</span>
+    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">param_ls</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">parse_proccfg</span><span class="p">(</span><span class="n">xml_file</span><span class="p">):</span>
+    <span class="n">root</span> <span class="o">=</span> <span class="n">ET</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">xml_file</span><span class="p">)</span><span class="o">.</span><span class="n">getroot</span><span class="p">()</span>
+    <span class="n">param_ls</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">root</span><span class="p">:</span>
+        <span class="n">param_ls</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s1">'Category'</span><span class="p">:</span><span class="n">root</span><span class="o">.</span><span class="n">tag</span><span class="p">,</span>
+                         <span class="s1">'Key'</span><span class="p">:</span><span class="n">i</span><span class="o">.</span><span class="n">attrib</span><span class="p">[</span><span class="s1">'Key'</span><span class="p">],</span>
+                         <span class="s1">'Value'</span><span class="p">:</span><span class="n">i</span><span class="o">.</span><span class="n">attrib</span><span class="p">[</span><span class="s1">'Value'</span><span class="p">]})</span>
+    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">param_ls</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">parse_execfg</span><span class="p">(</span><span class="n">xml_file</span><span class="p">):</span>
+    <span class="n">root</span> <span class="o">=</span> <span class="n">ET</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">xml_file</span><span class="p">)</span><span class="o">.</span><span class="n">getroot</span><span class="p">()</span>
+    <span class="n">param_ls</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">root</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+        <span class="n">param_ls</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s1">'Category'</span><span class="p">:</span><span class="n">root</span><span class="o">.</span><span class="n">tag</span><span class="p">,</span>
+                         <span class="s1">'Key'</span><span class="p">:</span><span class="n">i</span><span class="o">.</span><span class="n">attrib</span><span class="p">[</span><span class="s1">'Process'</span><span class="p">],</span>
+                         <span class="s1">'Value'</span><span class="p">:</span><span class="n">i</span><span class="o">.</span><span class="n">attrib</span><span class="p">[</span><span class="s1">'ExeTime'</span><span class="p">]})</span>
+    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">param_ls</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="section" id="the-if-else-approach">
+<h2>The If/Else Approach</h2>
+<p>In order to use the correct function to parse the 'matching' xml file, we could use the if/else statements to check for the xml file name or file content, then use conditional logic to call out the right function to parse the data.</p>
+<div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">cfg_file</span> <span class="ow">in</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">cfg_path</span><span class="p">,</span> <span class="s2">"*.xml"</span><span class="p">)):</span>
+
+    <span class="n">cfg_name</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">cfg_file</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">cfg_name</span> <span class="o">==</span> <span class="s2">"sysconfig.xml"</span><span class="p">:</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">parse_syscfg</span><span class="p">(</span><span class="n">cfg_file</span><span class="p">)</span>
+
+    <span class="k">elif</span> <span class="n">cfg_name</span> <span class="o">==</span> <span class="s2">"initconfig.xml"</span><span class="p">:</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">parse_initcfg</span><span class="p">(</span><span class="n">cfg_file</span><span class="p">)</span>
+
+    <span class="k">elif</span> <span class="n">cfg_name</span> <span class="o">==</span> <span class="s2">"processconfig.xml"</span><span class="p">:</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">parse_proccfg</span><span class="p">(</span><span class="n">cfg_file</span><span class="p">)</span>
+
+    <span class="k">elif</span> <span class="n">cfg_name</span> <span class="o">==</span> <span class="s2">"execonfig.xml"</span><span class="p">:</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">parse_execfg</span><span class="p">(</span><span class="n">cfg_file</span><span class="p">)</span>
+
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">pass</span>
+
+    <span class="c1"># continue other processes</span>
+</pre></div>
+<p>The if/else method, although it works, will become cumbersome as more file types are added. One way to mitigate this is to use Caller Dispatch or Dispatch Tables.</p>
+</div>
+<div class="section" id="the-call-dispatch-approach">
+<h2>The Call Dispatch Approach</h2>
+<p>Set up a dictionary using the logic 'keys' as dictionary keys and the corresponding function as the values.</p>
+<div class="highlight"><pre><span></span><span class="n">dispatch</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">'sysconfig.xml'</span><span class="p">:</span> <span class="n">parse_syscfg</span><span class="p">,</span>
+    <span class="s1">'initconfig.xml'</span><span class="p">:</span> <span class="n">parse_initcfg</span><span class="p">,</span>
+    <span class="s1">'processconfig.xml'</span><span class="p">:</span> <span class="n">parse_proccfg</span><span class="p">,</span>
+    <span class="s1">'execonfig.xml'</span><span class="p">:</span> <span class="n">parse_execfg</span>
+<span class="p">}</span>
+
+<span class="k">for</span> <span class="n">cfg_file</span> <span class="ow">in</span> <span class="n">glob_glob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">cfg_path</span><span class="p">,</span> <span class="s2">"*.xml"</span><span class="p">)):</span>
+
+    <span class="n">cfg_name</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">cfg_file</span><span class="p">)</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">dispatch</span><span class="p">[</span><span class="n">cfg_name</span><span class="p">](</span><span class="n">cfg_file</span><span class="p">)</span>
+
+    <span class="c1"># continue further processes</span>
+</pre></div>
+<p>Using Caller Dispatch enables the flexibility to add and remove functions in the dictionary, and we can easily introduce validation to handle or capture exceptions.</p>
+<div class="highlight"><pre><span></span><span class="n">dispatch</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">'sysconfig.xml'</span><span class="p">:</span> <span class="n">parse_syscfg</span><span class="p">,</span>
+    <span class="s1">'initconfig.xml'</span><span class="p">:</span> <span class="n">parse_initcfg</span><span class="p">,</span>
+    <span class="s1">'processconfig.xml'</span><span class="p">:</span> <span class="n">parse_proccfg</span><span class="p">,</span>
+    <span class="s1">'execonfig.xml'</span><span class="p">:</span> <span class="n">parse_execfg</span>
+<span class="p">}</span>
+
+<span class="c1"># Loop through all xml files in defined 'cfg_path'</span>
+<span class="k">for</span> <span class="n">cfg_file</span> <span class="ow">in</span> <span class="n">glob_glob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">cfg_path</span><span class="p">,</span> <span class="s2">"*.xml"</span><span class="p">)):</span>
+
+    <span class="n">cfg_name</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">cfg_file</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">dispatch</span><span class="p">[</span><span class="n">cfg_name</span><span class="p">](</span><span class="n">cfg_file</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">KeyError</span> <span class="k">as</span> <span class="n">ke</span><span class="p">:</span>
+        <span class="c1"># either print or raise the error</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Configuration not found, expected either </span><span class="si">{</span><span class="n">dispatch</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span><span class="si">}</span><span class="s2">, given </span><span class="si">{</span><span class="n">cfg_name</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+    <span class="c1"># continue further processes</span>
+</pre></div>
+</div>
+<div class="section" id="conclusion">
+<h2>Conclusion</h2>
+<p>Using Caller Dispatch / Dispatch Tables is way more robust, and the code is lesser, cleaner, and much more readable.</p>
+</div>
+</section>
+<section class="post-footer">
+<div class="post-share">
+<span class="post-info-label">Share</span>
+<a aria-label="Twitter" class="twitter" href="https://twitter.com/share?text=Caller Dispatch - Python&amp;url=posts/2022/Mar/04/caller-dispatch-to-replace-ifelse/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;" title="Twitter">
+<i aria-hidden="true" class="icon icon-twitter"></i>
+</a>
+<a aria-label="Facebook" class="facebook" href="https://www.facebook.com/sharer/sharer.php?u=posts/2022/Mar/04/caller-dispatch-to-replace-ifelse/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;" title="Facebook">
+<i aria-hidden="true" class="icon icon-facebook"></i>
+</a>
+<a aria-label="LinkedIn" class="linkedin" href="https://www.linkedin.com/shareArticle?mini=true&amp;url=posts/2022/Mar/04/caller-dispatch-to-replace-ifelse//&amp;title=Caller Dispatch - Python" onclick="window.open(this.href, 'linkedin-share', 'width=930,height=720');return false;" title="LinkedIn">
+<i aria-hidden="true" class="icon icon-linkedin"></i>
+</a>
+<a aria-label="Email" class="email" href="mailto:?subject=Caller Dispatch - Python&amp;body=posts/2022/Mar/04/caller-dispatch-to-replace-ifelse/" title="Email">
+<i aria-hidden="true" class="icon icon-mail"></i>
+</a>
+</div>
+<aside class="post-tags">
+<span class="post-info-label">Topic</span>
+<a href="tag/caller-dispatch.html">caller dispatch</a>
+<a href="tag/if-else-statements.html">if else statements</a>
+<a href="tag/python.html">python</a>
+<a href="tag/dictionary.html">dictionary</a>
+<a href="tag/dispatch.html">dispatch</a>
+<a href="tag/functions.html">functions</a>
+<a href="tag/conditional-logic.html">conditional logic</a>
+<a href="tag/function-call.html">function call</a>
+</aside>
+</section>
+<!-- Links to Previous/Next posts -->
+<aside class="post-nav">
+<!-- If there is a next post, display using same markup. neighbor plugin required -->
+<!-- If there is a previous post, display using same markup. neighbor plugin required -->
+<div class="clear"></div>
+</aside>
+</div>
+</article>
+</main>
+<div class="search-wrapper">
+<div class="search">
+<form class="search-form">
+<input class="search-field" placeholder="Search…" type="text"/>
+<button class="search-button" type="submit">
+<i aria-hidden="true" class="icon icon-search"></i>
+</button>
+</form>
+<div class="popular-wrapper">
+<h4 class="popular-title">Topics</h4>
+<span class="popular-tags post-tags">
+<a href="tag/caller-dispatch.html">caller dispatch: 1</a>
+<a href="tag/if-else-statements.html">if else statements: 1</a>
+<a href="tag/python.html">python: 1</a>
+<a href="tag/dictionary.html">dictionary: 1</a>
+<a href="tag/dispatch.html">dispatch: 1</a>
+<a href="tag/functions.html">functions: 1</a>
+<a href="tag/conditional-logic.html">conditional logic: 1</a>
+<a href="tag/function-call.html">function call: 1</a>
+</span>
+</div>
+<div class="search-result"></div>
+</div>
+<button aria-label="Close" class="search-wrapper-close"></button>
+</div>
+<div class="nav-footer">
+<nav aria-label="Footer" class="nav-wrapper">
+<span class="nav-copy">SpyderMaxi © 2022 <a class="nav-rss" href="../../../../../rss/" target="_blank" title="RSS"><i aria-hidden="true" class="icon icon-rss"></i></a></span>
+<span class="nav-credits">• Proudly powered by <a href="https://getpelican.com">Pelican</a> &amp; <a href="https://www.python.org/">Python</a> • <a href="https://github.com/spydermaxi/pelican-progem">Progem Theme</a> • <a class="menu-item js-theme" data-dark="Dark theme" data-light="Light theme" data-system="System theme" href="#"><span class="theme-icon"></span><span class="theme-text">System theme</span> </a> </span>
+</nav>
+</div>
+</section>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="../../../../../theme/js/ascript.js" type="text/javascript"></script>
+</body>
+</html>
